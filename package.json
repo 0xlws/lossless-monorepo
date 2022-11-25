@@ -1,0 +1,60 @@
+{
+  "name": "lossless-monorepo",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "zkDAO <harmonyzku@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf cache/ artifacts/",
+    "compile": "hardhat compile",
+    "hh": "hardhat",
+    "docs": "hardhat deploy-markdown-export --name 'V4 Testnet' --npm-package-name @pooltogether/v4-testnet --github-base-url 'https://github.com/pooltogether/v4-testnet/tree/master' --output-filepath testnet.md",
+    "addPrizes": "hardhat run ./scripts/addPrizes.js --network ",
+    "disburse": "hardhat run ./scripts/disburse.js --network",
+    "deposit": "hardhat run ./scripts/deposit.js --network ",
+    "generate": "node ./scripts/generateContractList.js",
+    "prepare-deploy": "yarn clean && yarn compile",
+    "prepack": "yarn generate",
+    "reinstall": "rm -rf node_modules/ && yarn cache clean && yarn",
+    "format": "prettier --config .prettierrc --write \"**/*.*.{ts,js}\"",
+    "format:file": "prettier --config .prettierrc --write",
+    "deploy:harmonyTestnet": "DEPLOY=v1.1.0.harmonyTestnet hardhat deploy --network harmonyTestnet",
+    "node:harmonyTestnet": "DEPLOY=v1.1.0.harmonyTestnet hardhat node --network harmonyTestnet",
+    "verify:harmonyTestnet": "hardhat run ./scripts/verify.ts --network harmonyTestnet",
+    "setup:harmonyTestnet": "yarn deploy:harmonyTestnet ; yarn disburse harmonyTestnet ; yarn deposit harmonyTestnet"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.5.1",
+    "@openzeppelin/contracts": "4.4.2",
+    "@pooltogether/hardhat-deploy-markdown-export": "0.2.0",
+    "find": "0.3.0",
+    "glob": "7.2.0"
+  },
+  "devDependencies": {
+    "@ethersproject/hardware-wallets": "5.5.0",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
+    "@nomiclabs/hardhat-etherscan": "3.0.0",
+    "@types/find": "0.2.1",
+    "@types/node": "17.0.10",
+    "chalk": "4.1.2",
+    "colors": "1.4.0",
+    "debug": "4.3.3",
+    "ethers": "5.5.3",
+    "hardhat": "2.8.3",
+    "hardhat-deploy": "0.9.26",
+    "hardhat-deploy-ethers": "0.3.0-beta.13",
+    "idx": "2.5.6",
+    "luxon": "2.3.0",
+    "prettier": "2.5.1",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.5"
+  },
+  "files": [
+    "artifacts",
+    "deployments/harmonyTestnet",
+    "contracts.json"
+  ]
+}
